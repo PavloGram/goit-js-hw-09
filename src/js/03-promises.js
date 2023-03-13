@@ -1,3 +1,5 @@
+import Notiflix from 'notiflix';
+
 const formEl = document.querySelector('.form');
 
 formEl.addEventListener('submit', formValue);
@@ -20,22 +22,28 @@ function formValue(eve) {
   const amount = eve.target.amount.value;
 
   let counter = 0;
-  let stepCounter = Number(delayStep);
+  let stepCounter = Number(firstDelay) - Number(delayStep);
 
-  const int = setInterval(() => {
-    counter += 1;
-    stepCounter += Number(firstDelay);
+  const int = setTimeout(() => {
+    const time = setInterval(() => {
+      counter += 1;
+      stepCounter += Number(delayStep);
 
-    createPromise(delayStep, amount)
-      .then(({ position, delay }) => {
-        console.log(`✅ Fulfilled promise ${counter} in ${stepCounter}ms`);
-      })
-      .catch(({ position, delay }) => {
-        console.log(`❌ Rejected promise ${counter} in ${stepCounter}ms`);
-      });
-    if (counter >= amount) {
-      clearInterval(int);
-    }
-    console.log(stepCounter);
+      createPromise(delayStep, amount)
+        .then(({ position, delay }) => {
+          Notiflix.Notify.success(
+            `✅ Fulfilled promise ${counter} in ${stepCounter}ms`
+          );
+        })
+        .catch(({ position, delay }) => {
+          Notiflix.Notify.failure(
+            `❌ Rejected promise ${counter} in ${stepCounter}ms`
+          );
+        });
+
+      if (counter >= amount) {
+        clearInterval(time);
+      }
+    }, delayStep);
   }, firstDelay);
 }
