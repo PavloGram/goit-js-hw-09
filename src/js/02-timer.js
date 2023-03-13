@@ -39,7 +39,7 @@ const options = {
     function startTimer(e) {
       const timerId = setInterval(() => {
         const startTime = selectedDates[0] - Date.now();
-        if (selectedDates[0].getTime() - Date.now() <= 1000) {
+        if (selectedDates[0].getTime() - Date.now() === 1000) {
           clearTimeout(timerId);
         }
         function convertMs(ms) {
@@ -47,15 +47,10 @@ const options = {
           const minute = second * 60;
           const hour = minute * 60;
           const day = hour * 24;
-
           const days = Math.floor(ms / day);
-
           const hours = Math.floor((ms % day) / hour);
-
           const minutes = Math.floor(((ms % day) % hour) / minute);
-
           const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-
           return { days, hours, minutes, seconds };
         }
 
