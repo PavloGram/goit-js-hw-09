@@ -24,7 +24,7 @@ function formValue(eve) {
   let counter = 0;
   let stepCounter = Number(firstDelay) - Number(delayStep);
 
-  const int = setTimeout(() => {
+  setTimeout(() => {
     const time = setInterval(() => {
       counter += 1;
       stepCounter += Number(delayStep);

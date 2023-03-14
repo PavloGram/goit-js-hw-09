@@ -8,12 +8,12 @@ stopBtn.addEventListener('click', stopBtnActive);
 let timerId = 0;
 
 function startBtnActive(e) {
-  return (timerId = setInterval(() => {
+  timerId = setInterval(() => {
     body.style.backgroundColor = `#${Math.floor(
       Math.random() * 16777215
     ).toString(16)}`;
-    startBtn.setAttribute('disabled', 'disabled');
-  }, 1000));
+  }, 1000);
+  startBtn.setAttribute('disabled', 'disabled');
 }
 
 function stopBtnActive() {
